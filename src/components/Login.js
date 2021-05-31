@@ -2,19 +2,24 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert, Container, Jumbotron } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import ImageBg from "../images/image_bg.jpeg"
+import ImageBg from "../images/bg_EST.png"
 import { Component } from "react"
 
+
+
 export default function Login() {
-  var sectionStyle = {
-    backgroundImage: `url(${ImageBg})`,
-  }
+  
+
   const emailRef = useRef()
   const passwordRef = useRef()
   const { login } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+
+  var sectionStyle = {
+    backgroundImage: `url(${ImageBg})`,
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -32,10 +37,16 @@ export default function Login() {
   }
 
   return (
+
+    <Container 
+    className="d-flex align-items-center justify-content-center"
+    style={{minHeight: "100vh", backgroundImage: `url(${ImageBg})`, maxWidth: "100vw"}}
+    >
+    <div className="w-100" style={{ maxWidth: "400px"}}>
       <Container>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
+      <Card style={{boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}}>
+        <Card.Body style={{ height: "400px", marginTop: "50px"}}>
+          <h2 className="text-center mb-4">Se connecter</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
@@ -47,17 +58,21 @@ export default function Login() {
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
             <Button disabled={loading} className="w-100" type="submit">
-              Log In
+            SE CONNECTER
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Forgot Password?</Link>
+            <Link to="/forgot-password">Mot de passe oublié?</Link>
           </div>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </div>
+
       </Container>
+    </div>
+    </Container>  
   )
 }
+
+/*<div className="w-100 text-center mt-2">
+        Need an account? <Link to="/signup">Sign Up</Link>
+      </div> */

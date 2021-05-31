@@ -1,6 +1,8 @@
 import React, { useState } from "react"
-import { Card, Button, Alert } from "react-bootstrap"
+import { Container, Card, Button, Alert } from "react-bootstrap"
 import { ImageBackground, StyleSheet, Text, View } from "react";
+import {useEffect} from "react"
+import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
@@ -8,6 +10,44 @@ export default function Dashboard() {
   const [error, setError] = useState("")
   const { currentUser, logout } = useAuth()
   const history = useHistory()
+
+  //query state
+  const [queryState, setQuerystate] = useState({
+    isLoading: true,
+    errorMessage: "",
+    docSnapchots: null,
+  });
+
+  useEffect(() => {
+    async function getLogedUser(){
+        try{
+            //Short way
+            setQuerystate({isLoading: true, errorMessage: "", docSnapchots:null});
+
+            const snapshot = await db.collection("Users").doc(currentUser.uid).get();
+
+            setQuerystate({isLoading: false, errorMessage: "", docSnapShot:snapshot});
+
+            if(!snapshot.exists){
+              console.log(`doc not found with id: no students with id${currentUser.uid}`);
+            }else{
+             console.log(`Sucsess user found!`);
+             console.log(snapshot.id);
+             console.log(snapshot.data());
+            }               
+        
+          }catch(err){
+            setQuerystate({
+                isLoading: false,
+                errorMessage: "Could not connect to database",
+                docSnapchots:null
+                });
+            console.error(err);
+          }
+    }
+    
+    getLogedUser();
+  }, []);  
 
   async function handleLogout() {
     setError("")
@@ -21,7 +61,11 @@ export default function Dashboard() {
   }
 
   return (
-    <>
+    <Container
+    className="d-flex align-items-center justify-content-center"
+    style={{minHeight: "100vh"}}
+    >
+    <div className="w-100" style={{ maxWidth: "400px" }}>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
@@ -37,6 +81,7 @@ export default function Dashboard() {
           Log Out
         </Button>
       </div>
-    </>
+    </div>
+    </Container>
   )
 }

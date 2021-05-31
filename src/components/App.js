@@ -8,30 +8,54 @@ import Login from "./Login"
 import PrivateRoute from "./PrivateRoute"
 import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile"
+import { Grid } from '@material-ui/core'
+import Header from './Header'
+import HomeContent from "./HomeContent"
+import Schedule from "./Schedule"
+import EScolarite from "./EScolarite"
+import ProfileEtudiant from "./ProfileEtudiant"
+import Actualite from "./Actualite"
 import ImageBg from "../images/image_bg.jpeg"
 
 function App() {
   return (
-    <Jumbotron style={{backgroundImage: `url(${ImageBg})`, backgroundSize: 'cover', position: "relative",top:0,left:0,bottom:0,right:0}} >
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{minHeight: "100vh"}}
-    >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
+    
         <Router>
           <AuthProvider>
             <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
-              <PrivateRoute path="/update-profile" component={UpdateProfile} />
-              <Route path="/signup" component={Signup} />
+            
               <Route path="/login" component={Login} />
-              <Route path="/forgot-password" component={ForgotPassword} />
+                
+              <div>
+              <Grid container direction="column">
+                <Grid item>
+                  <PrivateRoute  path="/" component={Header} />
+                </Grid>
+
+                <PrivateRoute path="/EScolarite" component={EScolarite} />
+                <PrivateRoute path="/Actualites" component={Actualite} />
+
+
+                <Grid item container>
+                  <Grid item xs={false} sm={2}/>
+                  <Grid item xs={12} sm={8}>
+                    <PrivateRoute exact path="/" component={HomeContent} />
+                    <PrivateRoute exact path="/Profile" component={Dashboard} />
+                    <PrivateRoute path="/update-profile" component={UpdateProfile} />
+                    <PrivateRoute path="/Schedule" component={Schedule} />
+                    <PrivateRoute path="/ProfileEtudiant" component={ProfileEtudiant} />
+                    <Route path="/signup" component={Signup} />
+                    <Route path="/forgot-password" component={ForgotPassword} />
+                  </Grid>
+                  <Grid item xs={false} sm={2}/>
+                </Grid>
+              </Grid>
+              </div>
+
             </Switch>
           </AuthProvider>
         </Router>
-      </div>
-    </Container>
-    </Jumbotron>
+    
   )
 }
 
