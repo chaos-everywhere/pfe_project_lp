@@ -50,7 +50,7 @@ export default function UpdateProfile() {
       <div className="w-100" style={{ maxWidth: "400px" }}>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Update Profile</h2>
+          <h2 className="text-center mb-4">Modifier mon compte</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
@@ -71,7 +71,7 @@ export default function UpdateProfile() {
               />
             </Form.Group>
             <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
+              <Form.Label>Confirmation Password</Form.Label>
               <Form.Control
                 type="password"
                 ref={passwordConfirmRef}
@@ -79,13 +79,13 @@ export default function UpdateProfile() {
               />
             </Form.Group>
             <Button disabled={loading} className="w-100" type="submit">
-              Update
+              Mettre à jour
             </Button>
           </Form>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        <Link to="/Dashboard">Cancel</Link>
+        <Link to="/Profile">Annuler</Link>
       </div>
       </div>
       </Container>

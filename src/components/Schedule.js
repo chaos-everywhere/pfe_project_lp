@@ -4,8 +4,7 @@ import { db } from "../firebase";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-import GetAllStudents from "../firebase/get_all_students"
-import GetOneStudent from "../firebase/get_one_student"
+import { useAuth } from "../contexts/AuthContext"
   
 
 function Schedule() {
@@ -14,7 +13,19 @@ function Schedule() {
     errorMessage: "",
     docSnapchots: null,
   });
+  const [FiliereQueyState, setFiliereQueyState] = useState({
+    isLoading: false,
+    errorMessage: "",
+    docSnapShot: null
+  });
+  const [eventsQueryState, setEventsQueryState] = useState({
+    isLoading: false,
+    errorMessage: "",
+    docSnapShot: null
+  });
   const [items, setItems] = useState("");
+  const { currentUser} = useAuth();
+  const [events, setEvents] = useState("");
 
 
   useEffect(() => {
@@ -27,6 +38,9 @@ function Schedule() {
 
             const snapshot = await db.collection("Resources").get()
             const docSnapchots = snapshot.docs;
+
+            setQuerystate({isLoading: false, errorMessage: "", docSnapchots});
+
            
             docSnapchots.forEach(function(doc) {
               items.push(doc.data());
@@ -44,8 +58,66 @@ function Schedule() {
             console.error(err);
           }
     }
+
+    async function getAllEvents(){
+      let idfil;
+      const items = [];
+
+      try {
+        //remove errorMsg from previous query remove docsnapshot data to null
+        setFiliereQueyState({isLoading: true, errorMessage: "", docSnapShot:null});
+
+        const snapshot = await db.collection("Users").doc(currentUser.uid).get();
+
+        setFiliereQueyState({isLoading: false, errorMessage: "", docSnapShot:snapshot});
+
+        if(!snapshot.exists){
+          console.log(`doc not found with id: no students with id`);
+        }else{
+         console.log(`Sucsess student found!`);
+         idfil = snapshot.data().id_filiere;
+         //seIdFiliere(idfil)
+        }
+      } catch (err) {
+        setFiliereQueyState({
+            isLoading: false, 
+            errorMessage: "could not connect to database",
+            docSnapShot:null
+        });
+        console.error(err);
+    }
+
+    try {
+      //remove errorMsg from previous query remove docsnapshot data to null
+      setEventsQueryState({isLoading: true, errorMessage: "", docSnapShot:null});
+
+      const snapshot = await db.collection("Filieres").doc(idfil).get();
+      console.log("dddddd")
+
+      setEventsQueryState({isLoading: false, errorMessage: "", docSnapShot:snapshot});
+
+      if(!snapshot.exists){
+        console.log(`filiere not found`);
+      }else{
+       console.log(`Filiere found`);
+       console.log(snapshot.data());
+       setEvents(snapshot.data().empoie);
+       //console.log(events);
+      }
+    } catch (err) {
+      setEventsQueryState({
+          isLoading: false, 
+          errorMessage: "could not connect to database",
+          docSnapShot:null
+      });
+      console.error(err);
+  }
+
+
+  }
     
     getAllResources();
+    getAllEvents();
   }, []);
 
   return( 
@@ -57,13 +129,7 @@ function Schedule() {
         resources={items}
         locale = 'fr' 
         buttonText={{today: "Aujourd'hui"}}
-        events={[
-          { id: '1', resourceId: 'a', startTime: '09:00', endTime: '12:15', title: 'Mobilité et geolocalisation', daysOfWeek: [ 1] },
-          { id: '2', resourceId: 'e', startTime: '10:00', endTime: '12:00', title: 'Android', daysOfWeek: [ 1, 2 ] },
-          { id: '3', resourceId: 'd', startTime: '13:00', endTime: '15:00', title: 'Comunication C', daysOfWeek: [ 1,2 ] },
-          { id: '4', resourceId: 'a', startTime: '15:00', endTime: '17:00', title: 'Java avancée', daysOfWeek: [ 1, 2, 4 ] },
-        ]
-        }
+        events={events}
         slotMinTime  = '8:00'
         slotMaxTime = '19:00'
         allDaySlot= {false}

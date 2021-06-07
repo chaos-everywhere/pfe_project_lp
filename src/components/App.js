@@ -1,6 +1,5 @@
 import React from "react"
 import Signup from "./Signup"
-import { Container, Jumbotron } from "react-bootstrap"
 import { AuthProvider } from "../contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Dashboard from "./Dashboard"
@@ -15,7 +14,6 @@ import Schedule from "./Schedule"
 import EScolarite from "./EScolarite"
 import ProfileEtudiant from "./ProfileEtudiant"
 import Actualite from "./Actualite"
-import ImageBg from "../images/image_bg.jpeg"
 
 function App() {
   return (

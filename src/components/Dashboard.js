@@ -72,13 +72,13 @@ export default function Dashboard() {
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email:</strong> {currentUser.email}
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-            Update Profile
+            Modifier mon compte
           </Link>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
         <Button variant="link" onClick={handleLogout}>
-          Log Out
+          Se déconnecter
         </Button>
       </div>
     </div>

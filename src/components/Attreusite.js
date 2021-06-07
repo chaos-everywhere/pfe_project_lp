@@ -4,7 +4,7 @@ import Attestation from './Attestation'
 function AttReusite (){
 
     return (
-       <Attestation />
+       <Attestation title="Demande d'attestation de réussite"/>
     );
 };
 

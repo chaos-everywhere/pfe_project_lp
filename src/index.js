@@ -1,7 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./components/App"
-import {db, firebase} from "./firebase"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 ReactDOM.render(
@@ -10,6 +9,10 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 )
+
+
+
+
 /*
 async function readAllUseres(){
 

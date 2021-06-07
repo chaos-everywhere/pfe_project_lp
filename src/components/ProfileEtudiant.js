@@ -26,17 +26,35 @@ import CircularProgress from '@material-ui/core/CircularProgress';
     }
   });
 
-  function createData(information, value) {
-    return {information, value};
+  function createData(info) {
+    return {info};
   }
 
   const rows = [
-    createData('Nom', "valide"),
-    createData('Prenom', "non valide"),
-    createData('Cod Apogée', "1234J2"),
-    createData('Date de nessance', "1999/01/13"),
-    createData('Numero de telephone',"062344322"),
+    'Nom',
+    'Prenom',
+    'Lieu de naissance',
+    'Date  naissance',
+    'CNE',
+    'CNI',
+    'Code apogée',
+    'Email',
+    'Filière',
+    'Telephone',
   ];
+  /*
+  const rows = [
+    createData('Nom'),
+    createData('Prenom'),
+    createData('Lieu de naissance'),
+    createData('CNE'),
+    createData('CNI'),
+    createData('Code apogée'),
+    createData('Email'),
+    createData('Filière'),
+    createData('Telephone'),
+  ];*/
+  
  
 
  function ProfileEtudiant (){
@@ -86,7 +104,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
             informations = Object.keys(items[0]);
             console.log(informations);
-            setInfos(informations)
+            console.log(rows);
+            rows.map((key, index) => {
+                console.log(key);
+            });
+            
+
+            setInfos(rows)
 
         
           }catch(err){
@@ -122,7 +146,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
                       </TableHead>
                       <TableBody>
                         {infos.map((key, index) => (
-                          <TableRow>
+                          <TableRow key={index}>
                             <TableCell align="left" className={classes.tabcell} component="th" scope="row" padding="none">
                               {key}
                             </TableCell>
@@ -211,4 +235,4 @@ export default ProfileEtudiant;
     </TableContainer>
     </>
         
-        */
+*/

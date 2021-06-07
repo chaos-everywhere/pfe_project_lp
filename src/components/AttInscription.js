@@ -6,7 +6,7 @@ import Attestation from './Attestation'
  function AttInscription (){
 
     return (
-       <Attestation />
+       <Attestation title="Demande d'attestation d'inscription"/>
     );
 };
 

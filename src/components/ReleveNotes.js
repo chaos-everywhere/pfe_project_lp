@@ -4,7 +4,7 @@ import Attestation from './Attestation'
 function ReleveNotes () {
 
     return (
-        <Attestation />
+        <Attestation title="Demande de relevé de notes"/>
     );
 };
 

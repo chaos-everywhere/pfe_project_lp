@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert, Container, Jumbotron } from "react-bootstrap"
+import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import ImageBg from "../images/bg_EST.png"
-import { Component } from "react"
 
 
 
@@ -16,10 +15,6 @@ export default function Login() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-
-  var sectionStyle = {
-    backgroundImage: `url(${ImageBg})`,
-  }
 
   async function handleSubmit(e) {
     e.preventDefault()
