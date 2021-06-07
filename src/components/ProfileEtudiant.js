@@ -26,9 +26,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
     }
   });
 
-  function createData(info) {
-    return {info};
-  }
 
   const rows = [
     'Nom',
@@ -59,15 +56,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
  function ProfileEtudiant (){
   const classes = useStyles();
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   const [items, setItems] = useState([]);
   const [infos, setInfos] = useState([]);
 
-  const [products, setProducts] = useState([
-    {code:1, name:"apple"},
-    {code:2, name:"laptop"},
-    {code:3, name:"tacos"},
-  ]);
+
 
   //query state
   const [queryState, setQuerystate] = useState({

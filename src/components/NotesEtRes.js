@@ -21,32 +21,16 @@ import {useEffect} from "react"
     },
   });
 
-  function createData(modele, note1, resultat1) {
-    return { modele, note1, resultat1};
-  }
-  function createMat(matiere, not) {
-    return {matiere, not};
-  }
+ 
 
-  const rows = [
-    createData('Entreprenariat et communication', 12,  "valide"),
-    createData('Genie Logiciel', 10, "non valide"),
-    createData('Modelisation objet', 14, "valide"),
-    createData('Management Industriel', 12, "valide"),
-    createData('Programmation objet', 10.63, "non valide"),
-  ];
+  
 
-  const mat = [
-    createMat('Entreprenariat', 12),
-    createMat('Entreprenariat', 12),
-    createMat('Entreprenariat', 12),
-    createMat('Entreprenariat', 12),
-  ];
+  
  
 
 function NotesEtRes (){
   const classes = useStyles();
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
 
   const [modules, setModules] = useState([]);
 

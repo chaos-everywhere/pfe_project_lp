@@ -19,7 +19,6 @@ function Actualite (){
         errorMessage: "",
         docSnapchots: null,
     });
-    const classes = useStyles();
     const [items, setItems] = useState([]);
 
     useEffect(() => {
